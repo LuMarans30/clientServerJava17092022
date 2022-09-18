@@ -1,5 +1,7 @@
 # clientServerJava17092022
 
+Simple app for connecting a client to a remote or local server to perform mathematical expressions.
+
 <h2> Usage: </h2>
 <ol>
 <li>Run serverSocket.jar to start the background process</li>
