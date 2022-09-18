@@ -14,24 +14,61 @@ import static java.lang.System.exit;
 
 /**
  * La classe Form1, sottoclasse di JFrame, è il client GUI che gestisce la connessione da/a un server (di default locale)
+ * @author Andrea Marano
+ * @version 1.0
  */
 public class Form1 extends JFrame {
 
+    /**
+     * Contiene l'indirizzo ip e la porta del server
+     */
     private JTextField txtIpPorta;
+
+    /**
+     * Contiene l'espressione matematica da inviare al server
+     */
     private JTextField txtOp;
+
+    /**
+     * Invia i dati al server
+     */
     private JButton btnInvio;
+
+    /**
+     * Il risultato dell'espressione matematica ricevuto dal server
+     */
     private JTextField txtRisultato;
+
+    /**
+     * Container che contiene tutti i componenti grafici utilizzati
+     */
     private JPanel jPanel1;
+
+    /**
+     * Esegue la connessione verso il server utilizzando l'ip e porta specificati da txtIpPorta
+     */
     private JButton btnCollega;
+
+    /**
+     * Flusso di dati in input (dal server al client)
+     */
     private DataInputStream socketInput;
+
+    /**
+     * Flusso di dati in output (dal client al server)
+     */
     private DataOutputStream socketOutput;
+
+    /**
+     * Gestisce la connessione client/server
+     */
     private Socket clientSocket;
 
     /**
      * Apertura della connessione verso l'indirizzo IP e porta specificati in input
-     * @param ip
-     * @param porta
-     * @throws IOException
+     * @param ip l'ip del server
+     * @param porta La porta aperta del server
+     * @throws IOException se la connessione al server fallisce
      */
     public void start(String ip, int porta) throws IOException {
 
@@ -40,7 +77,7 @@ public class Form1 extends JFrame {
 
     /**
      * Terminazione della connessione, dei relativi stream e chiusura del client
-     * @throws IOException
+     * @throws IOException se la chiusura delle connessioni o stream fallisce
      */
     public void stop() throws IOException {
 
@@ -52,8 +89,8 @@ public class Form1 extends JFrame {
 
     /**
      * Invio dell'operazione da svolgere al server e lettura del risultato
-     * @param operazione
-     * @throws IOException
+     * @param operazione l'espressione matematica che il server deve risolvere
+     * @throws IOException se la lettura/scrittura dei dati da/a il server fallisce o se il metodo stop() lancia un'eccezzione
      */
     public void work(String operazione) throws IOException {
 
@@ -125,6 +162,10 @@ public class Form1 extends JFrame {
         });
     }
 
+    /**
+     * Metodo main del Client
+     * @param args argomenti del metodo main
+     */
     public static void main(String[] args) {
         FlatDarkLaf.setup();
         JFrame frame = new Form1();
