@@ -4,13 +4,14 @@ import org.mariuszgromada.math.mxparser.Expression;
 import java.net.*;
 
 import java.io.*;
-import java.util.List;
 import java.util.Locale;
 
 import static java.lang.System.exit;
 
 /**
  * La classe Server calcola il risultato di un'espressione matematica ricevuta in input dal Client
+ * @author Andrea Marano
+ * @version 1.0
  */
 public class Server {
 
@@ -18,8 +19,14 @@ public class Server {
     private Socket clientSocket;
     private DataInputStream socketInput;
     private DataOutputStream socketOutput;
+    /**
+     * La porta che viene aperta è la numero 5000 per default
+     */
     public static final int PORTA = 5000;
 
+    /**
+     * Inizializzazione degli attributi della classe
+     */
     public Server() {
         serverSocket = null;
         clientSocket = new Socket();
@@ -29,7 +36,7 @@ public class Server {
 
     /**
      * Il server ascolta su una porta (di default la porta 5000)
-     * @throws Exception
+     * @throws Exception se il metodo work() lancia un'eccezzione
      */
     public void start() throws Exception {
         serverSocket = new ServerSocket(PORTA);
@@ -45,7 +52,7 @@ public class Server {
 
     /**
      * Terminazione di tutte le connessioni e stream di dati
-     * @throws Exception
+     * @throws Exception se la chiusura delle connessione o stream fallisce
      */
     public void stop() throws Exception {
         socketInput.close();
@@ -58,7 +65,7 @@ public class Server {
     /**
      * Calcolazione del valore corrispondente all'espressione matematica e invio al client
      * In caso che riceve il comando "quit" termina l'iterazione e invia come risultato "Fine connessione"
-     * @throws Exception
+     * @throws Exception se il calcolo del risultato o l'invio dei dati al Client fallisce
      */
     public void calcola() throws Exception
     {
@@ -88,7 +95,7 @@ public class Server {
 
     /**
      * Accetta la richiesta di connessione da parte del client ed elabora l'input
-     * @throws Exception
+     * @throws Exception se il metodo stop() lancia un'eccezzione
      */
     public void work() throws Exception {
 
@@ -110,7 +117,7 @@ public class Server {
 
     /**
      * Avviamento del server
-     * @param args
+     * @param args argomenti del main
      */
     public static void main(String[] args)
     {
