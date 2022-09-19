@@ -8,4 +8,4 @@ Simple app for connecting a client to a remote or local server to perform mathem
 <li>Run clientSocket.jar to connect to the server, the "quit" command from the client will stop the server deaemon.</li>
 </ol>
 
-Java 18 is required to run the jar files.
+Java 18 is required in order to run the jar files.
