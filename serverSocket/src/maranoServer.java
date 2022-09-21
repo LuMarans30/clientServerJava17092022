@@ -44,7 +44,6 @@ public class maranoServer {
 
         try {
             work();
-            System.out.println("Il client " + clientSocket.getLocalAddress() + ":" + clientSocket.getLocalPort() + " si e' connesso");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -59,7 +58,6 @@ public class maranoServer {
         socketOutput.close();
         clientSocket.close();
         serverSocket.close();
-        exit(0);
     }
 
     /**
@@ -100,6 +98,8 @@ public class maranoServer {
     public void work() throws Exception {
 
         clientSocket = serverSocket.accept();
+        
+        System.out.println("Il client " + clientSocket.getLocalAddress() + ":" + clientSocket.getLocalPort() + " si e' connesso");
 
         calcola();
 
@@ -107,6 +107,7 @@ public class maranoServer {
         {
             stop();
             System.out.println("Il client " + clientSocket.getLocalAddress() + ":" + clientSocket.getLocalPort() + " si e' disconnesso");
+            exit(0);
 
         }catch (Exception ex)
         {
