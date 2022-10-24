@@ -100,7 +100,12 @@ public class Client extends JFrame {
 
       while (readThread.isAlive() && writeThread.isAlive());
       String message = readThread.getMessage();
+
       txtRisultato.setText(message);
+
+      if(message.equals("")) {
+        work(messaggio);
+      }
 
     } catch (Exception ex) {
       JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

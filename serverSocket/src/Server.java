@@ -43,7 +43,6 @@ public class Server implements Runnable {
     public void run() {
         try {
             messaggia(clientSocket);
-            writeMessageToFile(username, message);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -96,19 +95,6 @@ public class Server implements Runnable {
         }
 
         stop();
-    }
-
-    public void writeMessageToFile(String username, String message) throws Exception
-    {
-        File file = new File(getClass().getResource("chat.txt").getFile());
-
-        if(!file.exists())
-            file.createNewFile();
-
-        FileWriter fileWriter = new FileWriter(file);
-        if(message!=null)
-            fileWriter.write(username + ";" + message + ";" + LocalDateTime.now() + "\n");
-        fileWriter.close();
     }
 
     /**
