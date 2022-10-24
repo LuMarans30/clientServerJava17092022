@@ -5,7 +5,9 @@ import java.net.Socket;
 import java.net.SocketOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 public class Server implements Runnable {
 
     private final ServerSocket serverSocket;
-    private final List<Socket> clientSocketList;
+    private final Map<String,Socket> clientSocketMap;
     private Socket clientSocket;
     private ReadThread readThread;
     private WriteThread writeThread;
@@ -35,7 +37,7 @@ public class Server implements Runnable {
      */
     public Server() throws Exception {
         serverSocket = new ServerSocket(PORTA);
-        clientSocketList = new ArrayList<>();
+        clientSocketMap = new HashMap<>();
         readThread = null;
         writeThread = null;
     }
@@ -85,8 +87,16 @@ public class Server implements Runnable {
             if (message.equals("exit")) {
                 message = "Connessione terminata";
                 running = false;
-            }else
-                message = readThread.getMessage();
+            }
+
+            clientSocketMap.forEach((key, value) -> {
+                if (value.equals(clientSocket)) {
+                    username = key;
+                }
+            });
+
+            if(!message.isEmpty())
+                System.out.println("Utente: " + username + " - Messaggio: " + message);
 
             writeThread = new WriteThread(clientSocket, message);
             writeThread.start();
@@ -105,13 +115,14 @@ public class Server implements Runnable {
 
         while(true) {
             clientSocket = serverSocket.accept();
-            clientSocketList.add(clientSocket);
             readThread = new ReadThread(clientSocket);
             readThread.start();
             if (!readThread.getExMessage().equals("false"))
                 throw new Exception(readThread.getExMessage());
 
             username = readThread.getMessage();
+
+            clientSocketMap.put(username, clientSocket);
 
             writeThread = new WriteThread(clientSocket, "Benvenuto " + username);
 

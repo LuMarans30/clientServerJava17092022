@@ -103,7 +103,8 @@ public class Client extends JFrame {
 
       txtRisultato.setText(message);
 
-      if(message.equals("")) {
+      if(message.isEmpty())
+      {
         work(messaggio);
       }
 
